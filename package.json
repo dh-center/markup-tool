@@ -1,0 +1,9 @@
+{
+  "name": "markup-tool",
+  "version": "1.0.0",
+  "repository": "git@github.com:dh-lab/markup-tool.git",
+  "author": "DH lab <dh@corp.ifmo.ru>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": ["frontend", "backend"]
+}
