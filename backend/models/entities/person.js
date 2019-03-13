@@ -1,17 +1,17 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var sourceSchema = require('./sourse');
-var chronologySchema = require('./chronology');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const sourceSchema = require('./source');
+const chronologySchema = require('./chronology');
 
-var personSchema = new Schema({
+const personSchema = new Schema({
   name: String,
-  pseudinyms: [String],
+  pseudonyms: [String],
   birthDate: Date,
   deathDate: Date,
   professions: [chronologySchema],
   titles: [chronologySchema],
   description: String,
-  sourses: [sourceSchema],
+  sources: [sourceSchema],
   images: [String]
 });
 
