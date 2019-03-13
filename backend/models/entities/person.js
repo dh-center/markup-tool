@@ -5,14 +5,14 @@ const chronologySchema = require('./chronology');
 
 const personSchema = new Schema({
   name: String,
-  pseudonyms: [String],
+  pseudonyms: [ String ],
   birthDate: Date,
   deathDate: Date,
-  professions: [chronologySchema],
-  titles: [chronologySchema],
+  professions: [ chronologySchema ],
+  titles: [ chronologySchema ],
   description: String,
-  sources: [sourceSchema],
-  images: [String]
+  sources: [ sourceSchema ],
+  images: [ String ]
 });
 
 module.exports = personSchema;
