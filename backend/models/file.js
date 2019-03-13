@@ -5,3 +5,5 @@ var fileSchema = new Schema({
   filename: String,
   path: String
 });
+
+module.exports = fileSchema;
