@@ -6,4 +6,4 @@ const fileSchema = new Schema({
   path: String
 });
 
-module.exports = fileSchema;
+module.exports = mongoose.model('files', fileSchema);

@@ -15,4 +15,4 @@ const personSchema = new Schema({
   images: [ String ]
 });
 
-module.exports = personSchema;
+module.exports = mongoose.model('persons', personSchema);
