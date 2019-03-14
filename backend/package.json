@@ -1,4 +1,11 @@
 {
   "name": "backend",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "dependencies": {
+    "mongoose": "^5.4.19"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "eslint-config-codex": "github:codex-team/eslint-config"
+  }
 }
