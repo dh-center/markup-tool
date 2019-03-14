@@ -3,20 +3,20 @@ const Schema = mongoose.Schema;
 
 const personSchema = new Schema({
   name: String,
-  pseudonyms: [ String ],
+  pseudonym: String,
   birthDate: Date,
   deathDate: Date,
-  professions: [ String ],
-  titles: [ String ],
+  profession: String,
+  title: String,
   description: String,
-  sources: [ {
+  source: {
     type: {
       title: String,
       description: String
     },
     required: false
-  } ],
-  images: [ String ]
+  },
+  image: String
 });
 
 module.exports = mongoose.model('persons', personSchema);
