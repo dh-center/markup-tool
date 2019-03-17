@@ -28,4 +28,7 @@ function getMongoUrl({protocol, host, port, dbName, user, password, authSource})
   return `${protocol + host}:${port}/${dbName}`;
 }
 
-mongoose.connect(getMongoUrl(mongodbOptions), {useNewUrlParser: true});
+mongoose.connect(getMongoUrl(mongodbOptions), {
+  useNewUrlParser: true,
+  useCreateIndex: true
+});
