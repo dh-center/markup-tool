@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const userSchema = new Schema({
   email: {
@@ -25,26 +26,10 @@ userSchema.statics.create = async function (email, password, cb) {
   return user.save(cb);
 };
 
-// userSchema.methods.setPassword = function (password) {
-//   this.salt = crypto.randomBytes(16).toString('hex');
-//   this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
-// };
-//
-// userSchema.methods.validPassword = function (password) {
-//   var hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
-//   return this.hash === hash;
-// };
-
-// userSchema.methods.generateJWT = function() {
-//    var today = new Date();
-//    var exp = new Date(today);
-//    exp.setDate(today.getDate() + 60);
-//
-//      return jwt.sign({
-//        id: this._id,
-//        username: this.username,
-//        exp: parseInt(exp.getTime() / 1000),
-//      }, secret);
-//   };
+userSchema.methods.generateJWT = function () {
+  return jwt.sign({
+    id: this._id,
+  }, process.env.JWT_SECRET_STRING,{ expiresIn: '15min' });
+};
 
 module.exports = mongoose.model('users', userSchema);
