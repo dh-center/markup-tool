@@ -15,6 +15,13 @@ const userSchema = new Schema({
   }
 });
 
+/**
+ * Creates new user in DB and returns him
+ * @param {String} email - user email
+ * @param {String} password - user password
+ * @param {Function} cb - callback (if not specified, Promises are used)
+ * @returns {Promise} - created user
+ */
 userSchema.statics.create = async function (email, password, cb) {
   /**
    * @const {Number} - cost factor: the higher the number, the more difficult is brute-forcing.
@@ -27,10 +34,15 @@ userSchema.statics.create = async function (email, password, cb) {
   return user.save(cb);
 };
 
-userSchema.methods.generateJWT = function () {
+/**
+ * Generates JWT
+ * @param {Function} cb - callback (if not specified, Promises are used)
+ * @returns {String} - generated JWT
+ */
+userSchema.methods.generateJWT = function (cb) {
   return jwt.sign({
     id: this._id,
-  }, process.env.JWT_SECRET_STRING, {expiresIn: '15min'});
+  }, process.env.JWT_SECRET_STRING, {expiresIn: '15min'}, cb);
 };
 
 module.exports = mongoose.model('users', userSchema);
