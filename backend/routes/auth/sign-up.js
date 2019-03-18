@@ -6,9 +6,10 @@ router.post('/sign-up', async (req, res) => {
   try {
     const newUser = await User.create(req.body.email, req.body.password);
     const jwt = newUser.generateJWT();
-    res.json({jwt});
+
+    res.json({ jwt });
   } catch (error) {
-    res.json({error})
+    res.json({ error });
   }
 });
 
