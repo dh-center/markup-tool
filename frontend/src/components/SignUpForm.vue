@@ -36,8 +36,13 @@ export default {
 
       axios.post('http://localhost:3000/sign-up', data)
         .then(response => {
-          alert(this.username + ', вы зарегистрировались!');
-          console.log(response);
+          if (response.data.error) {
+            alert('Что-то пошло не так!');
+            console.log(response.data.error);
+          } else {
+            alert(this.username + ', вы зарегистрировались!');
+            console.log(response);
+          }
         })
         .catch(error => {
           alert('Что-то пошло не так!');
