@@ -5,9 +5,9 @@
       <label>Имя:</label><br>
       <input required v-model="username" type="text" placeholder="Иванов Иван Иванович"/><br><br>
       <label>E-mail:</label><br>
-      <input required v-model="mail" type="email" placeholder="ivanivanov@mail.ru"/><br><br>
+      <input required v-model="email" type="email" placeholder="ivanivanov@mail.ru"/><br><br>
       <label>Пароль:</label><br>
-      <input required v-model="pass" type="password" /><br><br>
+      <input required v-model="password" type="password"/><br><br>
       <hr>
       <button type="submit">Отправить</button>
     </form>
@@ -16,29 +16,33 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'SignUpForm',
   data() {
     return {
       username: '',
-      mail: '',
-      pass: ''
+      email: '',
+      password: ''
     };
   },
   methods: {
     signUp() {
-      alert(this.username + ', вы зарегистрировались!');
-      let xhr = new XMLHttpRequest();
+      let data = {
+        email: this.email,
+        password: this.password
+      };
 
-      xhr.open('post', 'localhost:3000/sign-up', false);
-      let body = 'password=' + this.pass + '&email =' + this.mail;
-
-      xhr.send(body);
-      if (xhr.status != 200) {
-        alert(xhr.status + ': ' + xhr.statusText);
-      } else {
-        alert(xhr.responseText);
-      }
+      axios.post('http://localhost:3000/sign-up', data)
+        .then(response => {
+          alert(this.username + ', вы зарегистрировались!');
+          console.log(response);
+        })
+        .catch(error => {
+          alert('Что-то пошло не так!');
+          console.log(error);
+        });
     }
   }
 };
