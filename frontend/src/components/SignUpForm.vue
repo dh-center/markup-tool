@@ -16,30 +16,32 @@
 </template>
 
 <script>
-    export default{
-        name: "SignUpForm",
-        data () {
-          return {
-            username: "",
-            mail: "",
-            pass: ""
-          }
-        },
-        methods: {
-          signUp () {
-            alert(this.username + ", вы зарегистрировались!");
-            let xhr = new XMLHttpRequest();
-            xhr.open('post', 'localhost:3000/sign-up', false);
-            let body = "password=" + this.pass +"&email =" + this.mail;
-            xhr.send(body);
-            if (xhr.status != 200) {
-              alert( xhr.status + ': ' + xhr.statusText );
-            } else {
-              alert( xhr.responseText );
-            }
-          }
-        }
+export default {
+  name: 'SignUpForm',
+  data() {
+    return {
+      username: '',
+      mail: '',
+      pass: ''
+    };
+  },
+  methods: {
+    signUp() {
+      alert(this.username + ', вы зарегистрировались!');
+      let xhr = new XMLHttpRequest();
+
+      xhr.open('post', 'localhost:3000/sign-up', false);
+      let body = 'password=' + this.pass + '&email =' + this.mail;
+
+      xhr.send(body);
+      if (xhr.status != 200) {
+        alert(xhr.status + ': ' + xhr.statusText);
+      } else {
+        alert(xhr.responseText);
+      }
     }
+  }
+};
 </script>
 
 <style scoped>
