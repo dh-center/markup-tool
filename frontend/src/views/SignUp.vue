@@ -27,23 +27,23 @@
       };
     },
     methods: {
-      signUp() {
-        const data = {
-          email: this.email,
-          password: this.password
-        };
+      async signUp() {
+        try {
+          const data = {
+            email: this.email,
+            password: this.password
+          };
 
-        axios.post('http://localhost:3000/sign-up', data)
-          .then(response => {
-            if (response.data.error) {
-              console.log(response.data.error);
-            } else {
-              console.log(response);
-            }
-          })
-          .catch(error => {
-            console.log(error);
-          });
+          let response = await axios.post('http://localhost:3000/sign-up', data);
+
+          if (response.data.error) {
+            throw response.data.error;
+          } else {
+            console.log(response);
+          }
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
   };
