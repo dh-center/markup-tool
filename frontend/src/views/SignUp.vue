@@ -1,7 +1,7 @@
 <template>
   <div class="sign-up-page">
     <img alt="DH logo" src="../assets/logodh.jpg" class="sign-up-page__dhlogo">
-    <div class="SignUpForm">
+    <div>
       <form @submit.prevent="signUp">
         <h2>Регистрация</h2>
         <label for="email">E-mail:</label><br>
@@ -34,7 +34,7 @@
             password: this.password
           };
 
-          let response = await axios.post('http://localhost:3000/sign-up', data);
+          const response = await axios.post('http://localhost:3000/sign-up', data);
 
           if (response.data.error) {
             throw response.data.error;
@@ -49,7 +49,7 @@
   };
 </script>
 
-<style scoped>
+<style>
   .sign-up-page {
     text-align: center;
 
