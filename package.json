@@ -1,6 +1,9 @@
 {
   "name": "markup-tool",
   "version": "1.0.0",
+  "scripts": {
+    "lint": "eslint . --ext .js --ext .vue --fix"
+  },
   "repository": "git@github.com:dh-lab/markup-tool.git",
   "author": "DH lab <dh@corp.ifmo.ru>",
   "license": "MIT",
@@ -23,6 +26,7 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^5.15.3",
     "eslint-config-codex": "github:codex-team/eslint-config",
     "lint-staged": "^8.1.5"
   }
