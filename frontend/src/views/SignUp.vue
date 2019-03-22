@@ -1,28 +1,62 @@
 <template>
-  <div class="signup">
-     <img alt="DH logo" src="../assets/logodh.jpg" class="signup__dhlogo">
-     <SignUpForm />
+  <div class="sign-up-page">
+    <img alt="DH logo" src="../assets/logodh.jpg" class="sign-up-page__dhlogo">
+    <div class="SignUpForm">
+      <form @submit.prevent="signUp">
+        <h2>Регистрация</h2>
+        <label for="email">E-mail:</label><br>
+        <input required v-model="email" id="email" type="email" placeholder="ivanivanov@mail.ru"/><br><br>
+        <label for="password">Пароль:</label><br>
+        <input required v-model="password" id="password" type="password"/><br><br>
+        <hr>
+        <button type="submit">Отправить</button>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
-  import SignUpForm from '../components/SignUpForm.vue';
+  import axios from 'axios';
+
   export default {
     name: 'SignUp',
-    components: {
-      SignUpForm
+    data() {
+      return {
+        email: '',
+        password: ''
+      };
+    },
+    methods: {
+      signUp() {
+        const data = {
+          email: this.email,
+          password: this.password
+        };
+
+        axios.post('http://localhost:3000/sign-up', data)
+          .then(response => {
+            if (response.data.error) {
+              console.log(response.data.error);
+            } else {
+              console.log(response);
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
     }
   };
 </script>
 
 <style scoped>
-    .signup{
-      text-align: center;
-         &__dhlogo{
-            margin-top: 5vh;
-            height: 20vh;
-            min-height: 150px;
-         }
+  .sign-up-page {
+    text-align: center;
 
+    &__dhlogo {
+      margin-top: 5vh;
+      height: 20vh;
+      min-height: 150px;
     }
+  }
 </style>
