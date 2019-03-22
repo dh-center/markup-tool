@@ -16,41 +16,41 @@
 </template>
 
 <script>
-import axios from 'axios';
+  import axios from 'axios';
 
-export default {
-  name: 'SignUpForm',
-  data() {
-    return {
-      username: '',
-      email: '',
-      password: ''
-    };
-  },
-  methods: {
-    signUp() {
-      let data = {
-        email: this.email,
-        password: this.password
+  export default {
+    name: 'SignUpForm',
+    data() {
+      return {
+        username: '',
+        email: '',
+        password: ''
       };
+    },
+    methods: {
+      signUp() {
+        let data = {
+          email: this.email,
+          password: this.password
+        };
 
-      axios.post('http://localhost:3000/sign-up', data)
-        .then(response => {
-          if (response.data.error) {
+        axios.post('http://localhost:3000/sign-up', data)
+          .then(response => {
+            if (response.data.error) {
+              alert('Что-то пошло не так!');
+              console.log(response.data.error);
+            } else {
+              alert(this.username + ', вы зарегистрировались!');
+              console.log(response);
+            }
+          })
+          .catch(error => {
             alert('Что-то пошло не так!');
-            console.log(response.data.error);
-          } else {
-            alert(this.username + ', вы зарегистрировались!');
-            console.log(response);
-          }
-        })
-        .catch(error => {
-          alert('Что-то пошло не так!');
-          console.log(error);
-        });
+            console.log(error);
+          });
+      }
     }
-  }
-};
+  };
 </script>
 
 <style scoped>
