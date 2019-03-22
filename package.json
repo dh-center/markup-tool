@@ -5,5 +5,25 @@
   "author": "DH lab <dh@corp.ifmo.ru>",
   "license": "MIT",
   "private": true,
-  "workspaces": ["frontend", "backend"]
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "vue-cli-service lint",
+      "git add"
+    ],
+    "*.vue": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "eslint-config-codex": "github:codex-team/eslint-config",
+    "lint-staged": "^8.1.5"
+  }
 }
