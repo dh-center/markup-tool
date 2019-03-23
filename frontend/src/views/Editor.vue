@@ -2,7 +2,7 @@
   <div class="editor">
     <div class="editor__toolbar">
       <button @click="openModal">Новая сущность</button>
-      <modal-window v-if="showModal" @close="closeModal">
+      <modal-window v-show="showModal" @close="closeModal">
         <template #header>Добавить</template>
       </modal-window>
       <button>Продолжить сущность</button>
