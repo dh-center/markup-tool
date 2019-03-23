@@ -11,7 +11,7 @@
     </div>
 
     <div class="editor__column-layout">
-      <div class="editor__content"><br>
+      <div class="editor__content">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab amet autem blanditiis error est fuga numquam porro
         quo repudiandae sunt! Impedit ipsam iure quaerat ut. Asperiores atque, beatae enim explicabo facilis inventore
         ipsam nemo nisi officia quibusdam quis quo unde vel. Dolorem error ex harum hic modi molestiae neque
@@ -34,6 +34,7 @@
   import ModalWindow from '../components/ModalWindow';
 
   export default {
+    name: 'Editor',
     data() {
       return {
         showModal: false
