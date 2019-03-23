@@ -3,7 +3,7 @@
     <div class="editor__toolbar">
       <button @click="openModal">Новая сущность</button>
       <modal-window v-show="showModal" @close="closeModal">
-        <template #header>Добавить</template>
+        <template #header>Добавить сущность</template>
       </modal-window>
       <button>Продолжить сущность</button>
       <button>Нулевая анафора</button>
