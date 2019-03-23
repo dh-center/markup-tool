@@ -75,17 +75,12 @@
       float: right;
     }
 
-    &-enter {
-      opacity: 0;
-    }
-
-    &-leave-active {
+    &-enter, &-leave-active {
       opacity: 0;
     }
 
     &-enter &__container,
     &-leave-active &__container {
-      -webkit-transform: scale(1.1);
       transform: scale(1.1);
     }
   }
