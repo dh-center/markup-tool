@@ -2,10 +2,9 @@
   <div class="editor">
     <div class="editor__toolbar">
       <button @click="openModal">Новая сущность</button>
-      <div class="modal" v-if="modalOpened">
-        <div @click="closeModal"  class="modal-background"> </div>
-        <div class="modal-content">Hello!</div>
-      </div>
+      <modal-window v-if="showModal" @close="closeModal">
+        <template #header>Добавить</template>
+      </modal-window>
       <button>Продолжить сущность</button>
       <button>Нулевая анафора</button>
       <button>Убрать выделение</button>
@@ -32,22 +31,26 @@
 </template>
 
 <script>
+  import ModalWindow from '../components/ModalWindow';
 
   export default {
     data() {
       return {
-        modalOpened: false
-      }
+        showModal: false
+      };
     },
     methods: {
-      OpenModal () {
-        this.OpenModal = true;
+      openModal() {
+        this.showModal = true;
       },
-      closeModal(){
-        this.OpenModal = false;
+      closeModal() {
+        this.showModal = false;
       }
+    },
+    components: {
+      ModalWindow
     }
-  }
+  };
 </script>
 
 <style>
@@ -67,28 +70,4 @@
     }
   }
 
-  .modal, .modal-background {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vw;
-    z-index: 1000;
-  }
-  .modal-background {
-    background-color: rgba(10,10,10,0.8);
-    z-index: 40;
-
-  }
-
-  .modal{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .modal-content{
-    background-color: white;
-    z-index: 50;
-    padding: 2em;
-  }
 </style>
