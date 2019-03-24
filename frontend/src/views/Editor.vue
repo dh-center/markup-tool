@@ -1,11 +1,15 @@
 <template>
   <div class="editor">
     <div class="editor__toolbar">
-      <button>Новая сущность</button>
+      <button @click="openModal">Новая сущность</button>
+      <modal-window v-show="showModal" @close="closeModal">
+        <template #header>Добавить сущность</template>
+      </modal-window>
       <button>Продолжить сущность</button>
       <button>Нулевая анафора</button>
       <button>Убрать выделение</button>
     </div>
+
     <div class="editor__column-layout">
       <div class="editor__content">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab amet autem blanditiis error est fuga numquam porro
@@ -18,6 +22,7 @@
         autem consequuntur corporis cum debitis eligendi fugiat id libero magni nulla odit possimus quas quod repellat,
         sapiente similique. Ex id mollitia provident suscipit.
       </div>
+
       <div class="editor__entities-panel">
         <h1>Панель сущностей</h1>
       </div>
@@ -26,8 +31,26 @@
 </template>
 
 <script>
+  import ModalWindow from '../components/ModalWindow';
+
   export default {
-    name: 'Editor'
+    name: 'Editor',
+    data() {
+      return {
+        showModal: false
+      };
+    },
+    methods: {
+      openModal() {
+        this.showModal = true;
+      },
+      closeModal() {
+        this.showModal = false;
+      }
+    },
+    components: {
+      ModalWindow
+    }
   };
 </script>
 
@@ -47,4 +70,5 @@
       flex: 75%;
     }
   }
+
 </style>
