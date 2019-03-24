@@ -52,14 +52,13 @@
         const pos = document.caretRangeFromPoint(event.clientX, event.clientY);
         const textNode = pos.startContainer.data;
         const clickedChar = textNode[pos.startOffset];
+        const highlightDiv = document.createElement('span');
 
+        highlightDiv.className = 'editor__content-selected';
         console.log(clickedChar);
+        console.log(pos.cloneRange());
         if (clickedChar === ' ') {
           pos.setEnd(pos.endContainer, pos.endOffset + 1);
-          const highlightDiv = document.createElement('span');
-
-          highlightDiv.className = 'editor__content-selected';
-          pos.surroundContents(highlightDiv);
         } else if (typeof clickedChar != 'undefined') {
           let start = pos.startOffset;
 
@@ -74,9 +73,10 @@
             ++end;
           }
           pos.setEnd(pos.endContainer, end);
-          const highlightDiv = document.createElement('span');
-
-          highlightDiv.className = 'editor__content-selected';
+        }
+        if (pos.startContainer.parentNode.nodeName === 'SPAN') {
+          pos.startContainer.parentElement.outerHTML = pos.startContainer.parentElement.outerHTML.replace(/<[^>]*>/g, '');
+        } else {
           pos.surroundContents(highlightDiv);
         }
       }
