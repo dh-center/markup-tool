@@ -107,6 +107,7 @@
         color: #fff;
         background-color: red;
         border: 1px solid #000;
+        margin: 0 -1px;
       }
     }
   }
