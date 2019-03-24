@@ -6,10 +6,10 @@ module.exports = {
   extends: [
     'codex'
   ],
-  rules:{
+  rules: {
     'prefer-const': ['error', {
       'destructuring': 'all',
       'ignoreReadBeforeAssign': false
-    }]
+    } ]
   }
 };

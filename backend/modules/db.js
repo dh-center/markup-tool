@@ -21,7 +21,7 @@ const mongodbOptions = {
  * @param {String} [authSource] - database name for authentication
  * @returns {String} - URL to connect to MongoDB
  */
-function getMongoUrl({protocol, host, port, dbName, user, password, authSource}) {
+function getMongoUrl({ protocol, host, port, dbName, user, password, authSource }) {
   if (user && password && authSource) {
     return `${protocol + user}:${password}@${host}:${port}/${dbName}?authSource=${authSource}`;
   }
