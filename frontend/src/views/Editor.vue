@@ -11,7 +11,7 @@
     </div>
 
     <div class="editor__column-layout">
-      <div class="editor__content" v-on:click="selectWord($event)" id="editor__content">
+      <div class="editor__content" v-on:dblclick="selectWord" id="editor__content">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
         amet autem blanditiis error est fuga numquam porro
         quo repudiandae sunt! Impedit ipsam iure quaerat ut. Asperiores atque, beatae enim explicabo facilis inventore
@@ -48,37 +48,22 @@
       closeModal() {
         this.showModal = false;
       },
-      selectWord(event) {
-        const pos = document.caretRangeFromPoint(event.clientX, event.clientY);
-        const textNode = pos.startContainer.data;
-        const clickedChar = textNode[pos.startOffset];
-        const highlightDiv = document.createElement('span');
+      selectWord() {
+        const selection = window.getSelection();
+        const text = selection.toString();
 
-        highlightDiv.className = 'editor__content-selected';
-        console.log(clickedChar);
-        console.log(pos.cloneRange());
-        if (clickedChar === ' ') {
-          pos.setEnd(pos.endContainer, pos.endOffset + 1);
-        } else if (typeof clickedChar != 'undefined') {
-          let start = pos.startOffset;
+        if (text.length > 1 || text === ' ') {
+          const range = selection.getRangeAt(0);
+          const highlightDiv = document.createElement('span');
 
-          while (start >= 1 && /\S/.test(textNode.charAt(start - 1))) {
-            --start;
+          highlightDiv.className = 'editor__content-selected';
+          if (range.startContainer.parentNode.nodeName === 'SPAN') {
+            range.startContainer.parentElement.outerHTML = range.startContainer.parentElement.outerHTML.replace(/<[^>]*>/g, '');
+          } else {
+            range.surroundContents(highlightDiv);
           }
-          pos.setStart(pos.startContainer, start);
-          let end = pos.endOffset;
-          const len = textNode.length;
-
-          while (end < len && /\S/.test(textNode.charAt(end))) {
-            ++end;
-          }
-          pos.setEnd(pos.endContainer, end);
         }
-        if (pos.startContainer.parentNode.nodeName === 'SPAN') {
-          pos.startContainer.parentElement.outerHTML = pos.startContainer.parentElement.outerHTML.replace(/<[^>]*>/g, '');
-        } else {
-          pos.surroundContents(highlightDiv);
-        }
+        window.getSelection().removeAllRanges();
       }
     },
     components: {
@@ -101,7 +86,7 @@
 
     &__content {
       flex: 75%;
-      user-select: none;
+      cursor: pointer;
 
       &-selected {
         color: #fff;
