@@ -55,10 +55,11 @@
 
         window.getSelection().removeAllRanges();
 
-        if (selectedText.length > 1 || selectedText === ' ') { /* Отбрасываем выделение знаков препинания */
+        if (selectedText.length > 1 || selectedText === ' ') { /* do not select punctuation marks */
           const highlightElementType = 'span';
           const highlightElement = document.createElement(highlightElementType);
-          /*
+
+          /**
           * @const {String} - classname for selected block
           */
           const selectedClass = 'editor__content-selected';
@@ -66,7 +67,7 @@
           highlightElement.className = selectedClass;
           const selectedParentElement = selectedRange.startContainer.parentElement;
 
-          if (selectedParentElement.classList.contains(selectedClass)) { /* Проверяем, не выделил ли пользователь уже выделенный текст */
+          if (selectedParentElement.classList.contains(selectedClass)) { /* check if user has already selected this text. */
             selectedParentElement.outerHTML = selectedParentElement.innerHTML;
           } else {
             selectedRange.surroundContents(highlightElement);
