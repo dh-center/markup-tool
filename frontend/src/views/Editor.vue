@@ -4,6 +4,10 @@
       <button @click="openModal">Новая сущность</button>
       <modal-window v-show="showModal" @close="closeModal">
         <template #header>Добавить сущность</template>
+        <template #body>
+          <input type="text" v-model.number="entityId" placeholder="ID сущности">
+          <input type="text" v-model="entityName" placeholder="Имя сущности">
+        </template>
       </modal-window>
       <button>Продолжить сущность</button>
       <button>Нулевая анафора</button>
@@ -26,6 +30,8 @@
 
       <div class="editor__entities-panel">
         <h1>Панель сущностей</h1>
+        <span v-for="(entity, index) in currentEntities"
+              v-bind:class="['editor__content-entity','e'+entity.id]" v-bind:key="index">{{entity.name}}</span>
       </div>
     </div>
   </div>
@@ -38,6 +44,9 @@
     name: 'Editor',
     data() {
       return {
+        entityName: '',
+        entityId: null,
+        currentEntities: [],
         showModal: false
       };
     },
@@ -47,6 +56,13 @@
       },
       closeModal() {
         this.showModal = false;
+        const entityName = this.entityName;
+
+        this.entityName = '';
+        const entityId = this.entityId;
+
+        this.entityId = null;
+        this.createNewEntity(entityId, entityName);
       },
       selectWord() {
         const selection = window.getSelection();
@@ -60,8 +76,8 @@
           const highlightElement = document.createElement(highlightElementType);
 
           /**
-          * @const {String} - classname for selected block
-          */
+           * @const {String} - classname for selected block
+           */
           const selectedClass = 'editor__content-selected';
 
           highlightElement.className = selectedClass;
@@ -73,6 +89,32 @@
             selectedRange.surroundContents(highlightElement);
           }
         }
+      },
+      createNewEntity(entityId, entityName) {
+        this.currentEntities.push({
+          id: entityId,
+          name: entityName
+        });
+
+        /**
+         * @const {String} - classname for selected block
+         */
+        const selectedClass = 'editor__content-selected';
+
+        /**
+         * @const {String} - classname for entity block
+         */
+        const entityClass = 'editor__content-entity';
+        const selectedWordsList = Array.from(document.getElementsByClassName(selectedClass));
+
+        for (const selectedWordElement of selectedWordsList) {
+          selectedWordElement.classList.remove(selectedClass);
+          selectedWordElement.classList.add(entityClass, 'e' + entityId);
+        }
+
+        const generatedColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
+
+        document.styleSheets[0].insertRule('.e' + entityId + '{background-color:' + generatedColor + ';}');
       }
     },
     components: {
@@ -100,6 +142,12 @@
       &-selected {
         color: #fff;
         background-color: red;
+        border: 1px solid #000;
+        margin: 0 -1px;
+      }
+
+      &-entity {
+        color: #fff;
         border: 1px solid #000;
         margin: 0 -1px;
       }
