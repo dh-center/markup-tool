@@ -11,7 +11,7 @@
     </div>
 
     <div class="editor__column-layout">
-      <div class="editor__content" v-on:dblclick="selectWord" id="editor__content">
+      <div class="editor__content" v-on:dblclick="selectWord">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
         amet autem blanditiis error est fuga numquam porro
         quo repudiandae sunt! Impedit ipsam iure quaerat ut. Asperiores atque, beatae enim explicabo facilis inventore
@@ -51,19 +51,20 @@
       selectWord() {
         const selection = window.getSelection();
         const text = selection.toString();
+        const range = selection.getRangeAt(0);
+
+        window.getSelection().removeAllRanges();
 
         if (text.length > 1 || text === ' ') {
-          const range = selection.getRangeAt(0);
-          const highlightDiv = document.createElement('span');
+          const highlightSpan = document.createElement('span');
 
-          highlightDiv.className = 'editor__content-selected';
-          if (range.startContainer.parentNode.nodeName === 'SPAN') {
+          highlightSpan.className = 'editor__content-selected';
+          if (range.startContainer.parentElement.classList.contains('editor__content-selected')) {
             range.startContainer.parentElement.outerHTML = range.startContainer.parentElement.outerHTML.replace(/<[^>]*>/g, '');
           } else {
-            range.surroundContents(highlightDiv);
+            range.surroundContents(highlightSpan);
           }
         }
-        window.getSelection().removeAllRanges();
       }
     },
     components: {
