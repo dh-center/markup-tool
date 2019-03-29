@@ -11,7 +11,7 @@
     </div>
 
     <div class="editor__column-layout">
-      <div class="editor__content" v-on:dblclick="selectWord">
+      <div class="editor__content" @dblclick="selectWord">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
         amet autem blanditiis error est fuga numquam porro
         quo repudiandae sunt! Impedit ipsam iure quaerat ut. Asperiores atque, beatae enim explicabo facilis inventore
@@ -50,19 +50,26 @@
       },
       selectWord() {
         const selection = window.getSelection();
-        const text = selection.toString();
-        const range = selection.getRangeAt(0);
+        const selectedText = selection.toString();
+        const selectedRange = selection.getRangeAt(0);
 
         window.getSelection().removeAllRanges();
 
-        if (text.length > 1 || text === ' ') {
-          const highlightSpan = document.createElement('span');
+        if (selectedText.length > 1 || selectedText === ' ') { /* Отбрасываем выделение знаков препинания */
+          const highlightElementType = 'span';
+          const highlightElement = document.createElement(highlightElementType);
+          /*
+          * @const {String} - classname for selected block
+          */
+          const selectedClass = 'editor__content-selected';
 
-          highlightSpan.className = 'editor__content-selected';
-          if (range.startContainer.parentElement.classList.contains('editor__content-selected')) {
-            range.startContainer.parentElement.outerHTML = range.startContainer.parentElement.outerHTML.replace(/<[^>]*>/g, '');
+          highlightElement.className = selectedClass;
+          const selectedParentElement = selectedRange.startContainer.parentElement;
+
+          if (selectedParentElement.classList.contains(selectedClass)) { /* Проверяем, не выделил ли пользователь уже выделенный текст */
+            selectedParentElement.outerHTML = selectedParentElement.innerHTML;
           } else {
-            range.surroundContents(highlightSpan);
+            selectedRange.surroundContents(highlightElement);
           }
         }
       }
