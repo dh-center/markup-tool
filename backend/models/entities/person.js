@@ -9,13 +9,7 @@ const personSchema = new Schema({
   profession: String,
   title: String,
   description: String,
-  source: {
-    type: {
-      title: String,
-      description: String
-    },
-    required: false
-  },
+  source: String,
   image: String
 });
 
