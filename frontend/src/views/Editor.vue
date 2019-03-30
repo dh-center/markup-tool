@@ -11,8 +11,9 @@
     </div>
 
     <div class="editor__column-layout">
-      <div class="editor__content">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab amet autem blanditiis error est fuga numquam porro
+      <div class="editor__content" @dblclick="selectWord">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
+        amet autem blanditiis error est fuga numquam porro
         quo repudiandae sunt! Impedit ipsam iure quaerat ut. Asperiores atque, beatae enim explicabo facilis inventore
         ipsam nemo nisi officia quibusdam quis quo unde vel. Dolorem error ex harum hic modi molestiae neque
         perferendis,
@@ -46,6 +47,32 @@
       },
       closeModal() {
         this.showModal = false;
+      },
+      selectWord() {
+        const selection = window.getSelection();
+        const selectedText = selection.toString();
+        const selectedRange = selection.getRangeAt(0);
+
+        window.getSelection().removeAllRanges();
+
+        if (selectedText.length > 1 || selectedText === ' ') { /* do not select punctuation marks */
+          const highlightElementType = 'span';
+          const highlightElement = document.createElement(highlightElementType);
+
+          /**
+          * @const {String} - classname for selected block
+          */
+          const selectedClass = 'editor__content-selected';
+
+          highlightElement.className = selectedClass;
+          const selectedParentElement = selectedRange.startContainer.parentElement;
+
+          if (selectedParentElement.classList.contains(selectedClass)) { /* check if user has already selected this text. */
+            selectedParentElement.outerHTML = selectedParentElement.innerHTML;
+          } else {
+            selectedRange.surroundContents(highlightElement);
+          }
+        }
       }
     },
     components: {
@@ -68,6 +95,14 @@
 
     &__content {
       flex: 75%;
+      cursor: pointer;
+
+      &-selected {
+        color: #fff;
+        background-color: red;
+        border: 1px solid #000;
+        margin: 0 -1px;
+      }
     }
   }
 
