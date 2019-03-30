@@ -11,7 +11,7 @@
     </div>
 
     <div class="editor__column-layout">
-      <div class="editor__content" v-on:click="selectWord($event)" id="editor__content">
+      <div class="editor__content" @dblclick="selectWord">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
         amet autem blanditiis error est fuga numquam porro
         quo repudiandae sunt! Impedit ipsam iure quaerat ut. Asperiores atque, beatae enim explicabo facilis inventore
@@ -48,36 +48,30 @@
       closeModal() {
         this.showModal = false;
       },
-      selectWord(event) {
-        const pos = document.caretRangeFromPoint(event.clientX, event.clientY);
-        const textNode = pos.startContainer.data;
-        const clickedChar = textNode[pos.startOffset];
-        const highlightDiv = document.createElement('span');
+      selectWord() {
+        const selection = window.getSelection();
+        const selectedText = selection.toString();
+        const selectedRange = selection.getRangeAt(0);
 
-        highlightDiv.className = 'editor__content-selected';
-        console.log(clickedChar);
-        console.log(pos.cloneRange());
-        if (clickedChar === ' ') {
-          pos.setEnd(pos.endContainer, pos.endOffset + 1);
-        } else if (typeof clickedChar != 'undefined') {
-          let start = pos.startOffset;
+        window.getSelection().removeAllRanges();
 
-          while (start >= 1 && /\S/.test(textNode.charAt(start - 1))) {
-            --start;
+        if (selectedText.length > 1 || selectedText === ' ') { /* do not select punctuation marks */
+          const highlightElementType = 'span';
+          const highlightElement = document.createElement(highlightElementType);
+
+          /**
+          * @const {String} - classname for selected block
+          */
+          const selectedClass = 'editor__content-selected';
+
+          highlightElement.className = selectedClass;
+          const selectedParentElement = selectedRange.startContainer.parentElement;
+
+          if (selectedParentElement.classList.contains(selectedClass)) { /* check if user has already selected this text. */
+            selectedParentElement.outerHTML = selectedParentElement.innerHTML;
+          } else {
+            selectedRange.surroundContents(highlightElement);
           }
-          pos.setStart(pos.startContainer, start);
-          let end = pos.endOffset;
-          const len = textNode.length;
-
-          while (end < len && /\S/.test(textNode.charAt(end))) {
-            ++end;
-          }
-          pos.setEnd(pos.endContainer, end);
-        }
-        if (pos.startContainer.parentNode.nodeName === 'SPAN') {
-          pos.startContainer.parentElement.outerHTML = pos.startContainer.parentElement.outerHTML.replace(/<[^>]*>/g, '');
-        } else {
-          pos.surroundContents(highlightDiv);
         }
       }
     },
@@ -101,7 +95,7 @@
 
     &__content {
       flex: 75%;
-      user-select: none;
+      cursor: pointer;
 
       &-selected {
         color: #fff;
