@@ -2,13 +2,7 @@
   <div class="editor">
     <div class="editor__toolbar">
       <button @click="openDialog">Новая сущность</button>
-      <dialog-window v-show="showDialog" @close="closeDialog">
-        <template #header>Добавить сущность</template>
-        <template #body>
-          <input type="text" v-model.number="entityId" placeholder="ID сущности">
-          <input type="text" v-model="entityName" placeholder="Имя сущности">
-        </template>
-      </dialog-window>
+      <add-entity-dialog v-show="showDialog" @close="closeDialog"></add-entity-dialog>
       <button>Продолжить сущность</button>
       <button>Нулевая анафора</button>
       <button>Убрать выделение</button>
@@ -38,7 +32,7 @@
 </template>
 
 <script>
-  import DialogWindow from '../components/DialogWindow';
+  import AddEntityDialog from '../components/AddEntityDialog';
 
   export default {
     name: 'Editor',
@@ -118,7 +112,7 @@
       }
     },
     components: {
-      DialogWindow
+      AddEntityDialog
     }
   };
 </script>
