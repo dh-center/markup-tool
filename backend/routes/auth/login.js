@@ -6,9 +6,9 @@ router.get('/login', async (req, res) => {
   let jwt = 'sadsad';
 
   try {
-    User.find(function (err, users) {
+    User.find({ email: req.body.email }, function (err, users) {
       if (err) return console.error(err);
-      if ((req.body.email === users.email) && (req.body.password === users.password)) jwt = users.generateJWT();
+      if (req.body.password === users.password) jwt = users.generateJWT();
     });
 
     res.json({ jwt });

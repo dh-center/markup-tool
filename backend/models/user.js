@@ -45,4 +45,6 @@ userSchema.methods.generateJWT = function (cb) {
   }, process.env.JWT_SECRET_STRING, { expiresIn: '15min' }, cb);
 };
 
+userSchema.methods.comparePassword = function (password, cb) {
+};
 module.exports = mongoose.model('users', userSchema);
