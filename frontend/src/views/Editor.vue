@@ -1,14 +1,14 @@
 <template>
   <div class="editor">
     <div class="editor__toolbar">
-      <button @click="openModal">Новая сущность</button>
-      <modal-window v-show="showModal" @close="closeModal">
+      <button @click="openDialog">Новая сущность</button>
+      <dialog-window v-show="showDialog" @close="closeDialog">
         <template #header>Добавить сущность</template>
         <template #body>
           <input type="text" v-model.number="entityId" placeholder="ID сущности">
           <input type="text" v-model="entityName" placeholder="Имя сущности">
         </template>
-      </modal-window>
+      </dialog-window>
       <button>Продолжить сущность</button>
       <button>Нулевая анафора</button>
       <button>Убрать выделение</button>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import ModalWindow from '../components/ModalWindow';
+  import DialogWindow from '../components/DialogWindow';
 
   export default {
     name: 'Editor',
@@ -47,15 +47,15 @@
         entityName: '',
         entityId: null,
         currentEntities: [],
-        showModal: false
+        showDialog: false
       };
     },
     methods: {
-      openModal() {
-        this.showModal = true;
+      openDialog() {
+        this.showDialog = true;
       },
-      closeModal() {
-        this.showModal = false;
+      closeDialog() {
+        this.showDialog = false;
         const entityName = this.entityName;
 
         this.entityName = '';
@@ -118,7 +118,7 @@
       }
     },
     components: {
-      ModalWindow
+      DialogWindow
     }
   };
 </script>
