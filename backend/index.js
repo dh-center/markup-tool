@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const signUpRoute = require('./routes/auth/sign-up');
-const loginRoute = require('./routes/login');
+const loginRoute = require('./routes/auth/login');
 const path = require('path');
 const app = express();
 
