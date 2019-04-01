@@ -3,16 +3,13 @@ const router = express.Router();
 const User = require('../../models/user');
 
 router.get('/login', async (req, res) => {
-  let jwt = 'sadsad';
-
   try {
-    User.find({ email: req.body.email }, function (err, users) {
+    User.findOne({ email: req.body.email }, async function (err, user) {
       if (err) return console.error(err);
-      if (req.body.password === users.password) jwt = users.generateJWT();
-    });
+      const compareResult = await user.comparePassword(req.body.password);
 
-    res.json({ jwt });
-    console.log('HELLO');
+      if (compareResult) res.json({ jwt: user.generateJWT() });
+    });
   } catch (error) {
     res.json({ error });
   }
