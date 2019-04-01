@@ -49,8 +49,8 @@ userSchema.methods.generateJWT = function (cb) {
  * Compare Password
  * @param {String} password - non-hashed password
  * @param {Function} [cb] - callback (if not specified, Promises are used)
- * @returns {boolean} - compare result
- */
+ * @returns {Promise<boolean>} - compare result
+ * */
 userSchema.methods.comparePassword = function (password, cb) {
   return bcrypt.compare(password, this.hashedPassword, cb);
 };
