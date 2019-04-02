@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const signUpRoute = require('./routes/auth/sign-up');
+const loginRoute = require('./routes/auth/login');
 const path = require('path');
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(function (req, res, next) {
  * Auth routes
  */
 app.use(signUpRoute);
+app.use(loginRoute);
 
 /**
  * Start server
