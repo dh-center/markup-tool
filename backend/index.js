@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const signUpRoute = require('./routes/auth/sign-up');
 const loginRoute = require('./routes/auth/login');
+const textsRoute = require('./routes/texts');
 const path = require('path');
 const app = express();
 
@@ -35,6 +36,11 @@ app.use(function (req, res, next) {
  */
 app.use(signUpRoute);
 app.use(loginRoute);
+
+/**
+ * Text routes
+ */
+app.use(textsRoute);
 
 /**
  * Start server
