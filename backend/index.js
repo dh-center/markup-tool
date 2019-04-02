@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const signUpRoute = require('./routes/auth/sign-up');
 const loginRoute = require('./routes/auth/login');
-const textsRoute = require('./routes/texts');
+const textsRoute = require('./routes/texts/texts');
 const path = require('path');
 const app = express();
 
