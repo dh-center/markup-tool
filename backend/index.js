@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const signUpRoute = require('./routes/auth/sign-up');
 const loginRoute = require('./routes/auth/login');
 const textsRoute = require('./routes/texts/texts');
+const textRoute = require('./routes/texts/text');
 const path = require('path');
 const app = express();
 
@@ -41,6 +42,7 @@ app.use(loginRoute);
  * Text routes
  */
 app.use(textsRoute);
+app.use(textRoute);
 
 /**
  * Start server
