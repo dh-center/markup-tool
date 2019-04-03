@@ -12,16 +12,7 @@
 
     <div class="editor__column-layout">
       <div class="editor__content" @dblclick="selectWord">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
-        amet autem blanditiis error est fuga numquam porro
-        quo repudiandae sunt! Impedit ipsam iure quaerat ut. Asperiores atque, beatae enim explicabo facilis inventore
-        ipsam nemo nisi officia quibusdam quis quo unde vel. Dolorem error ex harum hic modi molestiae neque
-        perferendis,
-        possimus quibusdam. At consequatur cum fuga quos repellendus suscipit voluptatum! Deleniti nam repellendus
-        tempora. Animi error molestias provident sapiente similique totam veniam vitae, voluptatum! Ab, aliquam
-        architecto
-        autem consequuntur corporis cum debitis eligendi fugiat id libero magni nulla odit possimus quas quod repellat,
-        sapiente similique. Ex id mollitia provident suscipit.
+        {{text.content}}
       </div>
 
       <div class="editor__entities-panel">
@@ -33,13 +24,18 @@
 
 <script>
   import ModalWindow from '../components/ModalWindow';
+  import axios from 'axios';
 
   export default {
     name: 'Editor',
     data() {
       return {
-        showModal: false
+        showModal: false,
+        text: {}
       };
+    },
+    created() {
+      this.getText();
     },
     methods: {
       openModal() {
@@ -72,6 +68,16 @@
           } else {
             selectedRange.surroundContents(highlightElement);
           }
+        }
+      },
+      async getText() {
+        try {
+          const textId = this.$route.params.textId;
+          const response = await axios.get('/texts/' + textId);
+
+          if (response.status === 200 && response.data.data) this.text = response.data.data;
+        } catch (error) {
+          console.error(error);
         }
       }
     },
