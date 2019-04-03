@@ -4,7 +4,6 @@ const Entity = require('../models/entities/entity');
 
 router.post('/entity', async (req, res) => {
   try {
-    // const newEntity = await Entity(req.body.name);
     const newEntity = new Entity({
       'name': req.body.name
     });
