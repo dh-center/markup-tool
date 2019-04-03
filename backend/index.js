@@ -1,9 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const signUpRoute = require('./routes/auth/sign-up');
-const loginRoute = require('./routes/auth/login');
-const textsRoute = require('./routes/texts');
-const entityRoute = require('./routes/entity');
 const path = require('path');
 const app = express();
 
@@ -24,8 +20,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 /**
-  * Add headers for allow CORS
-  */
+ * Add headers for allow CORS
+ */
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -35,17 +31,24 @@ app.use(function (req, res, next) {
 /**
  * Auth routes
  */
+const signUpRoute = require('./routes/auth/sign-up');
+const loginRoute = require('./routes/auth/login');
+
 app.use(signUpRoute);
 app.use(loginRoute);
 
 /**
  * Text routes
  */
+const textsRoute = require('./routes/texts');
+
 app.use(textsRoute);
 
 /**
- * Text routes
+ * Entity routes
  */
+const entityRoute = require('./routes/entity');
+
 app.use(entityRoute);
 
 /**
