@@ -34,7 +34,7 @@
             password: this.password
           };
 
-          const response = await axios.post('http://localhost:3000/sign-up', data);
+          const response = await axios.post('/sign-up', data);
 
           if (response.data.error) {
             throw response.data.error;
