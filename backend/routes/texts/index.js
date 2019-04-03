@@ -24,6 +24,7 @@ router.get('/texts/:textId', async (req, res) => {
     if (error instanceof mongoose.CastError) {
       return res.json({ error: 'Invalid id' });
     }
+    res.json({ error });
   }
 });
 
