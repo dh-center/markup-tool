@@ -1,8 +1,8 @@
 <template>
   <div class="catalog">
-    <h1 class="title">Каталог текстов</h1>
-    <router-link tag="span" :to="{path: '/texts/'+text._id+'/markup'}" class="catalog__text_item"
-                 v-for="(text,index) in texts" v-bind:key="index" active-class="active">{{text.title}}
+    <h1>Каталог текстов</h1>
+    <router-link :to="{name: 'markup', params:{textId: text._id}}" class="catalog__text-item"
+                 v-for="(text,index) in texts" :key="index">{{text.title}}
     </router-link>
   </div>
 </template>
@@ -23,7 +23,7 @@
     methods: {
       async getTexts() {
         try {
-          const response = await axios.get('http://localhost:3000/texts');
+          const response = await axios.get('/texts');
 
           if (response.status === 200) this.texts = response.data.data;
         } catch (error) {
@@ -37,10 +37,11 @@
 <style>
   .catalog {
 
-    &__text_item {
+    &__text-item {
+      display: block;
       cursor: pointer;
       text-decoration: underline;
-      margin-right: 10px;
+      margin-bottom: 5px;
     }
   }
 </style>

@@ -10,7 +10,7 @@ export default new Router({
     {
       path: '/',
       name: 'catalog',
-      component: () => import(/* webpackChunkName: "editor" */ './views/Catalog.vue')
+      component: () => import(/* webpackChunkName: "catalog" */ './views/Catalog.vue')
     },
     {
       path: '/about',
@@ -18,8 +18,8 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
-      path: '/editor',
-      name: 'editor',
+      path: '/texts/:textId/markup',
+      name: 'markup',
       component: () => import(/* webpackChunkName: "editor" */ './views/Editor.vue')
     },
     {
