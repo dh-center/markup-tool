@@ -28,4 +28,18 @@ router.get('/texts/:textId', async (req, res) => {
   }
 });
 
+router.post('/texts/upload', async (req, res) => {
+  try {
+    const newText = new Text({
+      title: req.body.title,
+      content: req.body.content
+    });
+
+    await newText.save();
+    res.json({ title: req.body.title });
+  } catch (error) {
+    res.json({ error });
+  }
+});
+
 module.exports = router;
