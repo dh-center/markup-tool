@@ -1,8 +1,12 @@
 <template>
   <div class="catalog">
     <h1>Каталог текстов</h1>
-    <router-link :to="{name: 'markup', params:{textId: text._id}}" class="catalog__text-item"
-                 v-for="(text,index) in texts" :key="index">{{text.title}}
+    <router-link
+      :to="{name: 'markup', params: {textId: text._id}}"
+      class="catalog__text-item"
+      v-for="(text, index) in texts" :key="index"
+    >
+      {{text.title}}
     </router-link>
   </div>
 </template>
@@ -39,8 +43,6 @@
 
     &__text-item {
       display: block;
-      cursor: pointer;
-      text-decoration: underline;
       margin-bottom: 5px;
     }
   }
