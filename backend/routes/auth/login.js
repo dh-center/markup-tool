@@ -4,12 +4,14 @@ const User = require('../../models/user');
 
 router.get('/login', async (req, res) => {
   try {
-    User.findOne({ email: req.body.email }, async function (err, user) {
-      if (err) return console.error(err);
-      const compareResult = await user.comparePassword(req.body.password);
+    const user = await User.findOne({ email: req.query.email });
+    const compareResult = await user.comparePassword(req.query.password);
 
-      if (compareResult) res.json({ jwt: user.generateJWT() });
-    });
+    if (compareResult) {
+      res.json({ jwt: user.generateJWT() });
+    } else {
+      res.json({ error: 'Wrong password' });
+    }
   } catch (error) {
     res.json({ error });
   }
