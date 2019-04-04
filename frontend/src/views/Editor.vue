@@ -35,15 +35,17 @@
       };
     },
     created() {
-      this.getText();
+      this.loadText();
     },
     methods: {
       openModal() {
         this.showModal = true;
       },
+
       closeModal() {
         this.showModal = false;
       },
+
       selectWord() {
         const selection = window.getSelection();
         const selectedText = selection.toString();
@@ -70,7 +72,8 @@
           }
         }
       },
-      async getText() {
+
+      async loadText() {
         try {
           const textId = this.$route.params.textId;
           const response = await axios.get('/texts/' + textId);
