@@ -1,10 +1,15 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Catalog</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/sign-up">Sign-Up</router-link>
+    <div id="header">
+      <div id="nav">
+        <router-link to="/">Catalog</router-link>
+        <router-link to="/about">About</router-link>
+        <router-link to="/sign-up">Sign-Up</router-link>
+        <router-link to="/sign-in">Sign-In</router-link>
+        <router-link to="/sign-out">Sign-Out</router-link>
+      </div>
     </div>
+
     <router-view/>
   </div>
 </template>
@@ -18,15 +23,27 @@
   color: #2c3e50;
 }
 #nav {
-  padding: 30px;
+  padding-top: 15px;
+  height: 50px;
 }
-
+#header {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #adb67c;
+}
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #ffffff;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+a {
+  text-decoration: none;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+body{
+  padding: 0;
+  margin: 0;
 }
 </style>
