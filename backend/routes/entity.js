@@ -5,11 +5,11 @@ const Entity = require('../models/entities/entity');
 router.post('/entity', async (req, res) => {
   try {
     const newEntity = new Entity({
-      'name': req.body.name
+      name: req.body.name
     });
-    const saveEntity = await newEntity.save();
 
-    res.json({ newEntity: req.body.name });
+    await newEntity.save();
+    res.json({ status: 200 });
   } catch (error) {
     res.json({ error });
   }
