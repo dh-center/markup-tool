@@ -5,20 +5,15 @@
         <div class="dialog-window__container">
 
           <div class="dialog-window__header">
-            <slot name="header">
-              Добавить сущность
-            </slot>
+            <slot name="header"></slot>
           </div>
 
           <div class="dialog-window__body">
-            <slot name="body">
-              default body
-            </slot>
+            <slot name="body"></slot>
           </div>
 
           <div class="dialog-window__footer">
             <slot name="footer">
-              default footer
               <button class="dialog-window__default-button" @click="$emit('close')">
                 OK
               </button>
