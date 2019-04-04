@@ -1,9 +1,7 @@
 <template>
-  <transition name="add-entity-dialog">
     <dialog-window @close="$emit('close')">
       <template #header>Добавить сущность</template>
     </dialog-window>
-  </transition>
 </template>
 
 <script>
