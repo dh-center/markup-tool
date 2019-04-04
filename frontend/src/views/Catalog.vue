@@ -29,7 +29,7 @@
         try {
           const response = await axios.get('/texts');
 
-          if (response.status === 200) this.texts = response.data.data;
+          if (response.status === 200 && response.data.data) this.texts = response.data.data;
         } catch (error) {
           console.error(error);
         }
