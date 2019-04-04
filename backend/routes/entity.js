@@ -9,7 +9,7 @@ router.post('/entity', async (req, res) => {
     });
 
     await newEntity.save();
-    res.json({ status: 200 });
+    res.sendStatus(200);
   } catch (error) {
     res.json({ error });
   }
