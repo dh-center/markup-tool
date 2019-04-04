@@ -36,7 +36,7 @@ router.post('/texts', async (req, res) => {
     });
 
     await newText.save();
-    res.json({ status: 200 });
+    res.sendStatus(200);
   } catch (error) {
     res.json({ error });
   }
