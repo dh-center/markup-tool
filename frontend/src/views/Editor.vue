@@ -1,10 +1,8 @@
 <template>
   <div class="editor">
     <div class="editor__toolbar">
-      <button @click="openModal">Новая сущность</button>
-      <modal-window v-show="showModal" @close="closeModal">
-        <template #header>Добавить сущность</template>
-      </modal-window>
+      <button @click="openDialog">Новая сущность</button>
+      <add-entity-dialog v-show="showDialog" @close="closeDialog"></add-entity-dialog>
       <button>Продолжить сущность</button>
       <button>Нулевая анафора</button>
       <button>Убрать выделение</button>
@@ -23,14 +21,14 @@
 </template>
 
 <script>
-  import ModalWindow from '../components/ModalWindow';
+  import AddEntityDialog from '../components/AddEntityDialog';
   import axios from 'axios';
 
   export default {
     name: 'Editor',
     data() {
       return {
-        showModal: false,
+        showDialog: false,
         text: {}
       };
     },
@@ -38,12 +36,12 @@
       this.loadText();
     },
     methods: {
-      openModal() {
-        this.showModal = true;
+      openDialog() {
+        this.showDialog = true;
       },
 
-      closeModal() {
-        this.showModal = false;
+      closeDialog() {
+        this.showDialog = false;
       },
 
       selectWord() {
@@ -85,7 +83,7 @@
       }
     },
     components: {
-      ModalWindow
+      AddEntityDialog
     }
   };
 </script>
