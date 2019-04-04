@@ -1,25 +1,25 @@
 <template>
-  <transition name="modal-window">
-    <div class="modal-window__mask">
-      <div class="modal-window__wrapper">
-        <div class="modal-window__container">
+  <transition name="dialog-window">
+    <div class="dialog-window__mask">
+      <div class="dialog-window__wrapper">
+        <div class="dialog-window__container">
 
-          <div class="modal-window__header">
+          <div class="dialog-window__header">
             <slot name="header">
               Добавить сущность
             </slot>
           </div>
 
-          <div class="modal-window__body">
+          <div class="dialog-window__body">
             <slot name="body">
               default body
             </slot>
           </div>
 
-          <div class="modal-window__footer">
+          <div class="dialog-window__footer">
             <slot name="footer">
               default footer
-              <button class="modal-window__default-button" @click="$emit('close')">
+              <button class="dialog-window__default-button" @click="$emit('close')">
                 OK
               </button>
             </slot>
@@ -32,12 +32,12 @@
 
 <script>
   export default {
-    name: 'ModalWindow'
+    name: 'DialogWindow'
   };
 </script>
 
 <style>
-  .modal-window {
+  .dialog-window {
     &__mask {
       position: fixed;
       z-index: 9998;
