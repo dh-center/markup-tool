@@ -28,7 +28,7 @@ router.get('/texts/:textId', async (req, res) => {
   }
 });
 
-router.post('/texts/upload', async (req, res) => {
+router.post('/texts', async (req, res) => {
   try {
     const newText = new Text({
       title: req.body.title,
@@ -36,7 +36,7 @@ router.post('/texts/upload', async (req, res) => {
     });
 
     await newText.save();
-    res.json({ title: req.body.title });
+    res.json({ status: 200 });
   } catch (error) {
     res.json({ error });
   }
