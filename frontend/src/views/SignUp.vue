@@ -35,7 +35,6 @@
           };
           const response = await axios.post('/sign-up', data);
 
-          alert(response.data);
           if (response.data.error) {
             throw response.data.error;
           } else {
