@@ -34,7 +34,6 @@
     data() {
       return {
         entityName: '',
-        entityId: null,
         currentEntities: [],
         showDialog: false,
         text: {}
