@@ -1,3 +1,4 @@
+/* eslint no-shadow: ["error", { "allow": ["state"] }] */
 import { USER_REQUEST, USER_ERROR, USER_SUCCESS } from '../actions/user';
 import Vue from 'vue';
 import { AUTH_LOGOUT } from '../actions/auth';
@@ -10,7 +11,7 @@ const getters = {
 };
 
 const actions = {
-  [USER_REQUEST]: ({ commit, dispatch }) => {
+  [USER_REQUEST]: ({ commit }) => {
     commit(USER_REQUEST);
     commit(USER_SUCCESS);
   }

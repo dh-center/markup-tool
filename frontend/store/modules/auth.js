@@ -1,4 +1,5 @@
 /* eslint-disable promise/param-names */
+/* eslint no-shadow: ["error", { "allow": ["state"] }] */
 import { AUTH_REQUEST, AUTH_ERROR, AUTH_SUCCESS, AUTH_LOGOUT } from '../actions/auth';
 import { USER_REQUEST } from '../actions/user';
 import axios from 'axios';
@@ -35,8 +36,8 @@ const actions = {
         });
     });
   },
-  [AUTH_LOGOUT]: ({ commit, dispatch }) => {
-    return new Promise((resolve, reject) => {
+  [AUTH_LOGOUT]: ({ commit }) => {
+    return new Promise((resolve) => {
       commit(AUTH_LOGOUT);
       localStorage.removeItem('user-token');
       resolve();
