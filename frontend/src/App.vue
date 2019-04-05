@@ -42,6 +42,9 @@ a {
   margin-right: 10px;
   margin-left: 10px;
 }
+#nav a.router-link-exact-active {
+  color: #312656;
+}
 body{
   padding: 0;
   margin: 0;
