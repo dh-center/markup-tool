@@ -1,4 +1,3 @@
-/* eslint-disable promise/param-names */
 /* eslint no-shadow: ["error", { "allow": ["state"] }] */
 import { AUTH_REQUEST, AUTH_ERROR, AUTH_SUCCESS, AUTH_LOGOUT } from '../actions/auth';
 import { USER_REQUEST } from '../actions/user';
