@@ -15,6 +15,10 @@
 
       <div class="editor__entities-panel">
         <h1>Панель сущностей</h1>
+        <span v-for="(entity, index) in currentEntities"
+              v-bind:class="['editor__content-entity','e'+entity.id]" v-bind:key="index">
+              {{entity.name}}
+        </span>
       </div>
     </div>
   </div>
@@ -23,11 +27,15 @@
 <script>
   import AddEntityDialog from '../components/AddEntityDialog';
   import axios from 'axios';
+  import uuid from 'uuid/v4';
 
   export default {
     name: 'Editor',
     data() {
       return {
+        entityName: '',
+        entityId: null,
+        currentEntities: [],
         showDialog: false,
         text: {}
       };
@@ -40,8 +48,11 @@
         this.showDialog = true;
       },
 
-      closeDialog() {
+      closeDialog(entityName) {
         this.showDialog = false;
+        const entityId = uuid();
+
+        this.createNewEntity(entityId, entityName);
       },
 
       selectWord() {
@@ -56,8 +67,8 @@
           const highlightElement = document.createElement(highlightElementType);
 
           /**
-          * @const {String} - classname for selected block
-          */
+           * @const {String} - classname for selected block
+           */
           const selectedClass = 'editor__content-selected';
 
           highlightElement.className = selectedClass;
@@ -70,7 +81,29 @@
           }
         }
       },
+      createNewEntity(entityId, entityName) {
+        this.currentEntities.push({
+          id: entityId,
+          name: entityName
+        });
+        /**
+         * @const {String} - classname for selected block
+         */
+        const selectedClass = 'editor__content-selected';
+        /**
+         * @const {String} - classname for entity block
+         */
+        const entityClass = 'editor__content-entity';
+        const selectedWordsList = Array.from(document.getElementsByClassName(selectedClass));
 
+        for (const selectedWordElement of selectedWordsList) {
+          selectedWordElement.classList.remove(selectedClass);
+          selectedWordElement.classList.add(entityClass, 'e' + entityId);
+        }
+        const generatedColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
+
+        document.styleSheets[0].insertRule('.e' + entityId + '{background-color:' + generatedColor + ';}');
+      },
       async loadText() {
         try {
           const textId = this.$route.params.textId;
@@ -107,6 +140,12 @@
       &-selected {
         color: #fff;
         background-color: red;
+        border: 1px solid #000;
+        margin: 0 -1px;
+      }
+
+      &-entity {
+        color: #fff;
         border: 1px solid #000;
         margin: 0 -1px;
       }
