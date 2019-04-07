@@ -14,36 +14,30 @@ const getters = {
 };
 
 const actions = {
-  [AUTH_REQUEST]({ commit, dispatch }, user) {
-    return new Promise((resolve, reject) => {
+  async [AUTH_REQUEST]({ commit, dispatch }, user) {
+    try {
       commit(AUTH_REQUEST);
-      axios.get('/login', {
+      const resp = await axios.get('/login', {
         params: {
           email: user.email,
           password: user.password
         }
-      })
-        .then(resp => {
-          const token = resp.data.jwt;
+      });
+      const token = resp.data.jwt;
 
-          localStorage.setItem('user-token', token);
-          axios.defaults.headers.common['Authorization'] = token;
-          commit(AUTH_SUCCESS, resp);
-          resolve(resp);
-        })
-        .catch(err => {
-          commit(AUTH_ERROR, err);
-          localStorage.removeItem('user-token');
-          reject(err);
-        });
-    });
-  },
-  [AUTH_LOGOUT]({ commit }) {
-    return new Promise((resolve) => {
-      commit(AUTH_LOGOUT);
+      localStorage.setItem('user-token', token);
+      axios.defaults.headers.common['Authorization'] = token;
+      commit(AUTH_SUCCESS, resp);
+      return resp;
+    } catch (err) {
+      commit(AUTH_ERROR, err);
       localStorage.removeItem('user-token');
-      resolve();
-    });
+      return err;
+    }
+  },
+  async [AUTH_LOGOUT]({ commit }) {
+    commit(AUTH_LOGOUT);
+    localStorage.removeItem('user-token');
   }
 };
 
