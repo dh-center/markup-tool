@@ -14,10 +14,15 @@ const getters = {
 };
 
 const actions = {
-  [AUTH_REQUEST]: ({ commit, dispatch }, user) => {
+  [AUTH_REQUEST]({ commit, dispatch }, user) {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST);
-      axios.get('/login?email=' + user.email + '&password=' + user.password)
+      axios.get('/login', {
+        params: {
+          email: user.email,
+          password: user.password
+        }
+      })
         .then(resp => {
           const token = resp.data.jwt;
 
@@ -33,7 +38,7 @@ const actions = {
         });
     });
   },
-  [AUTH_LOGOUT]: ({ commit }) => {
+  [AUTH_LOGOUT]({ commit }) {
     return new Promise((resolve) => {
       commit(AUTH_LOGOUT);
       localStorage.removeItem('user-token');
@@ -43,19 +48,19 @@ const actions = {
 };
 
 const mutations = {
-  [AUTH_REQUEST]: (state) => {
+  [AUTH_REQUEST](state) {
     state.status = 'loading';
   },
-  [AUTH_SUCCESS]: (state, resp) => {
+  [AUTH_SUCCESS](state, resp) {
     state.status = 'success';
     state.token = resp.data.jwt;
     state.hasLoadedOnce = true;
   },
-  [AUTH_ERROR]: (state) => {
+  [AUTH_ERROR](state) {
     state.status = 'error';
     state.hasLoadedOnce = true;
   },
-  [AUTH_LOGOUT]: (state) => {
+  [AUTH_LOGOUT](state) {
     state.token = '';
   }
 };
