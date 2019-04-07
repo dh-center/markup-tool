@@ -22,21 +22,13 @@ const actions = {
           password: user.password
         }
       });
-      const token = resp.data.jwt;
 
-      localStorage.setItem('user-token', token);
-      axios.defaults.headers.common['Authorization'] = token;
       commit(AUTH_SUCCESS, resp);
       return resp;
     } catch (err) {
       commit(AUTH_ERROR, err);
-      localStorage.removeItem('user-token');
       return err;
     }
-  },
-  async [AUTH_LOGOUT]({ commit }) {
-    commit(AUTH_LOGOUT);
-    localStorage.removeItem('user-token');
   }
 };
 
@@ -45,15 +37,19 @@ const mutations = {
     state.status = 'loading';
   },
   [AUTH_SUCCESS](state, resp) {
+    localStorage.setItem('user-token', resp.data.jwt);
+    axios.defaults.headers.common['Authorization'] = resp.data.jwt;
     state.status = 'success';
     state.token = resp.data.jwt;
     state.hasLoadedOnce = true;
   },
   [AUTH_ERROR](state) {
+    localStorage.removeItem('user-token');
     state.status = 'error';
     state.hasLoadedOnce = true;
   },
   [AUTH_LOGOUT](state) {
+    localStorage.removeItem('user-token');
     state.token = '';
   }
 };
