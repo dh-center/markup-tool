@@ -13,9 +13,8 @@
     name: 'SignOut',
     methods: {
       signout: function () {
-        this.$store.commit(AUTH_LOGOUT).then(() => {
-          this.$router.push('/about');
-        });
+        this.$store.commit(AUTH_LOGOUT);
+        this.$router.push('/about');
       }
     }
   };
