@@ -23,11 +23,11 @@ const actions = {
         }
       });
 
-      commit(AUTH_SUCCESS, resp);
+      commit(AUTH_SUCCESS, resp.data.jwt);
       return resp;
     } catch (err) {
       commit(AUTH_ERROR, err);
-      return err;
+      throw err;
     }
   }
 };
@@ -36,11 +36,11 @@ const mutations = {
   [AUTH_REQUEST](state) {
     state.status = 'loading';
   },
-  [AUTH_SUCCESS](state, resp) {
-    localStorage.setItem('user-token', resp.data.jwt);
-    axios.defaults.headers.common['Authorization'] = resp.data.jwt;
+  [AUTH_SUCCESS](state, token) {
+    localStorage.setItem('user-token', token);
+    axios.defaults.headers.common['Authorization'] = token;
     state.status = 'success';
-    state.token = resp.data.jwt;
+    state.token = token;
     state.hasLoadedOnce = true;
   },
   [AUTH_ERROR](state) {
