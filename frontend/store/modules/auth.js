@@ -1,6 +1,5 @@
 /* eslint no-shadow: ["error", { "allow": ["state"] }] */
 import { AUTH_REQUEST, AUTH_ERROR, AUTH_SUCCESS, AUTH_LOGOUT } from '../actions/auth';
-import { USER_REQUEST } from '../actions/user';
 import axios from 'axios';
 
 const state = {
@@ -25,7 +24,6 @@ const actions = {
           localStorage.setItem('user-token', token);
           axios.defaults.headers.common['Authorization'] = token;
           commit(AUTH_SUCCESS, resp);
-          dispatch(USER_REQUEST);
           resolve(resp);
         })
         .catch(err => {
