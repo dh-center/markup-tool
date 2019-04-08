@@ -1,6 +1,6 @@
 <template>
-  <div class="sign-out-page">
-    <img alt="DH logo" src="../assets/logodh.jpg" class="sign-out-page__dhlogo">
+  <div class="sign-page">
+    <img alt="DH logo" src="../assets/logodh.jpg" class="dhlogo">
     <form class="sign-out" @submit.prevent="signout">
       <button type="submit">Выйти</button>
     </form>
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import { AUTH_LOGOUT } from '../../store/actions/auth';
+  import { AUTH_LOGOUT } from '../store/actions/auth';
   export default {
     name: 'SignOut',
     methods: {
@@ -21,13 +21,5 @@
 </script>
 
 <style scoped>
-  .sign-out-page {
-    text-align: center;
-
-    &__dhlogo {
-      margin-top: 5vh;
-      height: 20vh;
-      min-height: 150px;
-    }
-  }
+  @import url("../styles/sign.css");
 </style>

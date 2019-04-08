@@ -1,6 +1,6 @@
 <template>
-  <div class="sign-in-page">
-    <img alt="DH logo" src="../assets/logodh.jpg" class="sign-in-page__dhlogo">
+  <div class="sign-page">
+    <img alt="DH logo" src="../assets/logodh.jpg" class="dhlogo">
     <form class="login" @submit.prevent="login">
       <h1>Sign in</h1><br>
       <label>User name</label><br>
@@ -14,20 +14,8 @@
   </div>
 </template>
 
-<style>
-  .sign-in-page {
-    text-align: center;
-
-    &__dhlogo {
-      margin-top: 5vh;
-      height: 20vh;
-      min-height: 150px;
-    }
-  }
-</style>
-
 <script>
-  import { AUTH_REQUEST } from '../../store/actions/auth';
+  import { AUTH_REQUEST } from '../store/actions/auth';
 
   export default {
     name: 'SignIn',
@@ -48,3 +36,7 @@
     }
   };
 </script>
+
+<style>
+  @import url("../styles/sign.css");
+</style>

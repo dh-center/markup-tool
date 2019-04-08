@@ -1,6 +1,6 @@
 <template>
-  <div class="sign-up-page">
-    <img alt="DH logo" src="../assets/logodh.jpg" class="sign-up-page__dhlogo">
+  <div class="sign-page">
+    <img alt="DH logo" src="../assets/logodh.jpg" class="dhlogo">
     <div>
       <form @submit.prevent="signUp">
         <h2>Регистрация</h2>
@@ -49,13 +49,5 @@
 </script>
 
 <style>
-  .sign-up-page {
-    text-align: center;
-
-    &__dhlogo {
-      margin-top: 5vh;
-      height: 20vh;
-      min-height: 150px;
-    }
-  }
+  @import url("../styles/sign.css");
 </style>

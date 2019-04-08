@@ -1,0 +1,8 @@
+.sign-page {
+  text-align: center;
+}
+.sign-page .dhlogo {
+  margin-top: 5vh;
+  height: 20vh;
+  min-height: 150px;
+}

@@ -1,11 +1,11 @@
 /* eslint no-shadow: ["error", { "allow": ["state"] }] */
 import { AUTH_REQUEST, AUTH_ERROR, AUTH_SUCCESS, AUTH_LOGOUT } from '../actions/auth';
 import axios from 'axios';
+import router from '../../router.js';
 
 const state = {
   token: localStorage.getItem('user-token') || '',
-  status: '',
-  hasLoadedOnce: false
+  status: ''
 };
 
 const getters = {
@@ -41,16 +41,16 @@ const mutations = {
     axios.defaults.headers.common['Authorization'] = token;
     state.status = 'success';
     state.token = token;
-    state.hasLoadedOnce = true;
   },
   [AUTH_ERROR](state) {
-    localStorage.removeItem('user-token');
     state.status = 'error';
-    state.hasLoadedOnce = true;
+    this.commit(AUTH_LOGOUT);
   },
   [AUTH_LOGOUT](state) {
+    axios.defaults.headers.common['Authorization'] = '';
     localStorage.removeItem('user-token');
     state.token = '';
+    router.push('/sign-in');
   }
 };
 
