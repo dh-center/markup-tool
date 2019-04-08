@@ -16,7 +16,9 @@
       <div class="editor__entities-panel">
         <h1>Панель сущностей</h1>
         <span v-for="(entity, index) in currentEntities"
-              v-bind:class="['editor__content-entity','e'+entity.id]" v-bind:key="index">
+              :key="index"
+              :class="['editor__content-entity','e'+entity.id]"
+        >
               {{entity.name}}
         </span>
       </div>
@@ -28,6 +30,14 @@
   import AddEntityDialog from '../components/AddEntityDialog';
   import axios from 'axios';
   import uuid from 'uuid/v4';
+
+  /**
+   * @const {object} - classes for various editor elements
+   **/
+  const CLASSES = {
+    selectedClass: 'editor__content-selected', // selected element
+    entityClass: 'editor__content-entity' // entity element
+  };
 
   export default {
     name: 'Editor',
@@ -65,15 +75,10 @@
           const highlightElementType = 'span';
           const highlightElement = document.createElement(highlightElementType);
 
-          /**
-           * @const {String} - classname for selected block
-           */
-          const selectedClass = 'editor__content-selected';
-
-          highlightElement.className = selectedClass;
+          highlightElement.className = CLASSES.selectedClass;
           const selectedParentElement = selectedRange.startContainer.parentElement;
 
-          if (selectedParentElement.classList.contains(selectedClass)) { /* check if user has already selected this text. */
+          if (selectedParentElement.classList.contains(CLASSES.selectedClass)) { /* check if user has already selected this text. */
             selectedParentElement.outerHTML = selectedParentElement.innerHTML;
           } else {
             selectedRange.surroundContents(highlightElement);
@@ -85,23 +90,15 @@
           id: entityId,
           name: entityName
         });
-        /**
-         * @const {String} - classname for selected block
-         */
-        const selectedClass = 'editor__content-selected';
-        /**
-         * @const {String} - classname for entity block
-         */
-        const entityClass = 'editor__content-entity';
-        const selectedWordsList = Array.from(document.getElementsByClassName(selectedClass));
 
-        for (const selectedWordElement of selectedWordsList) {
-          selectedWordElement.classList.remove(selectedClass);
-          selectedWordElement.classList.add(entityClass, 'e' + entityId);
-        }
-        const generatedColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
+        document.querySelectorAll(`.${CLASSES.selectedClass}`).forEach((selectedWordElement) => {
+          selectedWordElement.classList.remove(CLASSES.selectedClass);
+          selectedWordElement.classList.add(CLASSES.entityClass, 'e' + entityId);
+        });
 
-        document.styleSheets[0].insertRule('.e' + entityId + '{background-color:' + generatedColor + ';}');
+        const randomColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
+
+        document.styleSheets[0].insertRule('.e' + entityId + '{background-color:' + randomColor + ';}');
       },
       async loadText() {
         try {
