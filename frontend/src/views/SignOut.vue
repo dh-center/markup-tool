@@ -19,6 +19,6 @@
   };
 </script>
 
-<style scoped>
+<style>
   @import url("../styles/sign.css");
 </style>
