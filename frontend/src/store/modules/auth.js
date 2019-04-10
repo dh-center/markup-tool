@@ -47,7 +47,7 @@ const mutations = {
     this.commit(AUTH_LOGOUT);
   },
   [AUTH_LOGOUT](state) {
-    axios.defaults.headers.common['Authorization'] = '';
+    delete axios.defaults.headers.common['Authorization'];
     localStorage.removeItem('user-token');
     state.token = '';
     router.push('/sign-in');

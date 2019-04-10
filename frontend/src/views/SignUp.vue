@@ -1,6 +1,6 @@
 <template>
-  <div class="sign-page">
-    <img alt="DH logo" src="../assets/logodh.jpg" class="dhlogo">
+  <div class="auth-page">
+    <img alt="DH logo" src="../assets/logodh.jpg" class="auth-page__dhlogo">
     <div>
       <form @submit.prevent="signUp">
         <h2>Регистрация</h2>

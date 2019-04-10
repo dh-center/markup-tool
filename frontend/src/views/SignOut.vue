@@ -1,7 +1,7 @@
 <template>
-  <div class="sign-page">
-    <img alt="DH logo" src="../assets/logodh.jpg" class="dhlogo">
-    <form class="sign-out" @submit.prevent="signout">
+  <div class="auth-page">
+    <img alt="DH logo" src="../assets/logodh.jpg" class="auth-page__dhlogo">
+    <form class="sign-out" @submit.prevent="signOut">
       <button type="submit">Выйти</button>
     </form>
   </div>
@@ -12,7 +12,7 @@
   export default {
     name: 'SignOut',
     methods: {
-      signout: function () {
+      signOut() {
         this.$store.commit(AUTH_LOGOUT);
       }
     }

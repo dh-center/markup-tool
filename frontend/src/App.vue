@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <div id="header">
-      <div id="nav">
+    <div id="app__header">
+      <div id="app__nav">
         <router-link to="/">Catalog</router-link>
         <router-link to="/about">About</router-link>
         <router-link to="/sign-up">Sign-Up</router-link>
@@ -22,18 +22,18 @@
   text-align: center;
   color: #2c3e50;
 }
-#nav {
+#app__nav {
   padding-top: 15px;
   height: 50px;
 }
-#header {
+#app__header {
   padding: 0;
   margin: 0;
   width: 100%;
   height: 50px;
   background-color: #adb67c;
 }
-#nav a {
+#app__nav a {
   font-weight: bold;
   color: #ffffff;
 }
@@ -42,7 +42,7 @@ a {
   margin-right: 10px;
   margin-left: 10px;
 }
-#nav a.router-link-exact-active {
+#app__nav a.router-link-exact-active {
   color: #312656;
 }
 body{
